@@ -1,10 +1,13 @@
 import express from 'express';
-import 'dotenv/config'
-import { connectDB } from './src/db/db';
-import { Crypto } from './src/model/crypto';
+import cors from 'cors';
+import 'dotenv/config';
+import { connectDB } from './db/db';
+import { Crypto } from './model/crypto';
+
 connectDB();
 const PORT = process.env.PORT;
 const app = express();
+app.use(cors());
 
 const getData = () => {
     fetch('https://api.wazirx.com/api/v2/tickers')
@@ -33,7 +36,10 @@ const emptyDB = async (callback) => {
         callback();
     }
 }
+
 emptyDB(getData);
+// automatically updates data every 30sec
+setInterval(() => emptyDB(getData), 2000);
 
 // Define a simple route
 app.get('/cryptoinfo/api/v1/tickers', async (req, res) => {
@@ -44,3 +50,5 @@ app.get('/cryptoinfo/api/v1/tickers', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server-Connected@:${PORT}`);
 });
+
+// exports.api = functions.https.onRequest(app);
