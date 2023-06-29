@@ -44,7 +44,7 @@ const emptyDB = async (callback) => {
 
 emptyDB(getData);
 // automatically updates data every 30sec
-setInterval(() => emptyDB(getData), 30000);
+setInterval(() => emptyDB(getData), 60000);
 
 // Define a simple route
 app.get('/', async (req, res) => {
