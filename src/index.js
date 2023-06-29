@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import fetch from 'node-fetch';
 import 'dotenv/config';
 import { connectDB } from './db/db';
 import { Crypto } from './model/crypto';
